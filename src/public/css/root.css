@@ -1,0 +1,20 @@
+*,
+*:after,
+*:before {
+    margin: 0;
+    padding: 0;
+
+    box-shadow: border-box;
+    font-family: Verdana, Geneva, sans-serif;;
+}
+
+body{
+    font-size: 100%;
+    background: #dddddd;
+    overflow: hidden;
+}
+
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+}
