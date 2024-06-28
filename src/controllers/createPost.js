@@ -9,6 +9,7 @@ class CreatePost {
             const {
                 title,
                 subject,
+                author,
                 text,
                 createDate,
                 updateDate
@@ -16,30 +17,38 @@ class CreatePost {
 
             const newArticle = {
                 id: articles.length + 1,
-                title: title || (() => { throw new Error({ error: "missing data", message: "Title data not filled!" }) })(),
-                subject: subject  || (() => { throw new Error({ error: "missing data", message: "Subject data not filled!" }) })(),
-                text: text  || (() => { throw new Error({ error: "missing data", message: "Text data not filled!" }) })(),
-                createDate: createDate || new Date(),
-                updateDate: updateDate || new Date(),
+                title: title || (() => { throw new Error(JSON.stringify({ error: "missing data", message: "Title data not filled!", status: "error" })) })(),
+                subject: subject  || (() => { throw new Error(JSON.stringify({ error: "missing data", message: "Subject data not filled!", status: "error" })) })(),
+                author: author || (() => { throw new Error(JSON.stringify({ error: "missing data", message: "Author data not filled!", status: "error" })) })(),
+                text: text  || (() => { throw new Error(JSON.stringify({ error: "missing data", message: "Text data not filled!", status: "error" })) })(),
+                createDate: createDate || Date(),
+                updateDate: updateDate || Date(),
             }
 
             articles.push(newArticle)
 
             if(articles.slice(-1)[0] !== newArticle) {
-                throw new Error({ error: "Create error", message: "Article not found! Try again." })
+                throw new Error(JSON.stringify({ error: "Create error", message: "Article not found! Try again.", status: "error" }))
             }
 
             manipulateFile.saveFile(articles)
 
-            return res.render("home.ejs", { message: "Article created" })
+            return res.render("home.ejs", { message: "Article created", status: "success" })
         } catch (err) {
-            if(err.error === "missing data") {
-                return res.render("home.ejs", { error: err.message })
-            } else if (err.error === "Create error") {
-                return res.render("home.ejs", { error: err.message })
+            let errorMessage;
+            try {
+                errorMessage = JSON.parse(err.message);
+            } catch (parseErr) {
+                errorMessage = { error: "Unknown error", message: "An error occurred when trying to create the article.", status: "error" };
+            }
+
+            if(errorMessage.error === "missing data") {
+                return res.render("home.ejs", { message: errorMessage.message, status: errorMessage.status })
+            } else if (errorMessage.error === "Create error") {
+                return res.render("home.ejs", { message: errorMessage.message, status: errorMessage.status })
             } else {
-                console.log(err)
-                return res.render("home.ejs", { error: "An error occurred when trying to create the article." })
+                console.log(errorMessage)
+                return res.render("home.ejs", { message: errorMessage.message, status: errorMessage.status })
             }
         }
     }

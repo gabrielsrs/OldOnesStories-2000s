@@ -10,6 +10,7 @@ class UpdatePost {
                 id,
                 title,
                 subject,
+                author,
                 text,
                 updateDate
             } = req.body
@@ -20,25 +21,33 @@ class UpdatePost {
                 id: id,
                 title: title || articles[itemPosition].title,
                 subject: subject  || articles[itemPosition].subject,
+                author: author || articles[itemPosition].author,
                 text: text  || articles[itemPosition].text,
                 createDate: articles[itemPosition].createDate,
-                updateDate: updateDate || new Date(),
+                updateDate: updateDate || Date(),
             }
 
             articles[itemPosition] = newArticle
 
             if(articles[itemPosition] !== newArticle) {
-                throw new Error({ error: "Update error", message: "Article not updated correctly! Try again." })
+                throw new Error(JSON.stringify({ error: "Update error", message: "Article not updated correctly! Try again." }))
             }
 
             manipulateFile.saveFile(articles)
 
             return res.render("home.ejs", { message: "Article updated" })
         } catch (err) {
-            if(err.error === "Update error") {
-                return res.render("home.ejs", { error: err.message })
+            let errorMessage;
+            try {
+                errorMessage = JSON.parse(err.message);
+            } catch (parseErr) {
+                errorMessage = { error: "Unknown error", message: "An error occurred when trying to update the article.", status: "error" };
+            }
+
+            if(errorMessage.error === "Update error") {
+                return res.render("home.ejs", { message: errorMessage.message })
             } else {
-                return res.render("home.ejs", { error: "An error occurred when trying to update the article." })
+                return res.render("home.ejs", { message: errorMessage.message })
             }
         }
     }
