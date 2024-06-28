@@ -5,6 +5,8 @@ import { router } from "./routes/index.js"
 
 const app = express();
 
+app.use(express.json())
+
 const __dirname = fileURLToPath(import.meta.url)
 
 app.set("views", path.join(__dirname, "../views"))

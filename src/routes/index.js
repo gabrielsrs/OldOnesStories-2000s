@@ -1,8 +1,17 @@
 import { Router } from "express";
+import { ViewPost } from "../controllers/viewPost.js";
+import { CreatePost } from "../controllers/createPost.js";
+import { UpdatePost } from "../controllers/updatePost.js";
+import { DeletePost } from "../controllers/deletePost.js";
 
 export const router = Router()
 
-router.get("/", )
-router.post("/", )
-router.patch("/", )
-router.delete("/", )
+const viewPost = new ViewPost()
+const createPost = new CreatePost()
+const updatePost = new UpdatePost()
+const deletePost = new DeletePost()
+
+router.get("/", viewPost.handle)
+router.post("/", createPost.handle)
+router.patch("/", updatePost.handle)
+router.delete("/", deletePost.handle)
