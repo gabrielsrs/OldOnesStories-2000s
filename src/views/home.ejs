@@ -4,8 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Old Ones Stories - 2000s</title>
+
+    <link rel="stylesheet" href="css/root.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
+    <header id="header" class="main-contents">
+        <div id="title-page">
+            <h1>Old Ones Stories</h1>
+            <h3>2000s</h3>
+            <div id="about-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" fill="#fff"/></svg>
+            </div>
+        </div>
+        <div id="about-text" class="hidden-about-text">
+            <span>
+                Old Ones Stories - 2000s aims to create a vibrant community where memories are shared and preserved, providing a delightful escape into the past for anyone who loves to reminisce about the good old days.
+            </span>
+        </div>
+        <nav>
+            <div id="filter-left">[ 
+                <span id="recent-articles" class="link">recent articles</span>|<span id="old-articles" class="link">old articles</span> ]
+            </div>
+            <div id="filter-right">[ archives by
+                <span id="filter-date" class="link">date</span>|<span id="filter-subject" class="link">subject</span>|<span id="filter-author" class="link">author</span> ]
+            </div>
+        </nav>
+        <div id="filter-options" class="filter-options hidden-filter">
+            <div id="filter-name"></div>
+            <div id="specific-filter-options"></div>
+            <div id="filter-submit">
+                <input type="submit" name value="Filter" />
+            </div>
+        </div>
+    </header>
+    <main id="main" class="main-contents">
+        <% if (locals.message) { %>
+            <div id="message" class="<%= status %>">
+                <%= message %>
+            </div>
+        <%  } %>
+        <form action="/" method="post" id="create-new-article" hidden>
+            <div class="articles">
+                <button type="reset" id="close-form" class="close-article"></button>
+                <div class="title-text">
+                    <input type="text" name="title" id="" placeholder="Title">
+                    <hr>
+                    <textarea name="text" id="" placeholder="Text"></textarea>
+                </div>
+                <div class="info-submit">
+                    <div class="add-info">
+                        <input type="text" name="subject" id="" placeholder="Subject"> |
+                        <input type="text" name="author" id="" placeholder="Author">
+                    </div>
+                    <div id="submit-form">
+                        <button type="submit" class="submitted-button">[ <span class="link">Submit</span> ]</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id="article-content">
+            <% if (locals.articles) { %>
+                <% for (article of articles) { %>
+                    <article class="articles">
+                        <form method="post" class="change-article">
+                            <input type="hidden" name="id" value="<%= article.id %>">
+                            <button type="button" class="close-article" hidden></button>
+                            <input type="hidden" name="title" class="title-edited">
+                            <h1 hidden><%= article.title %></h1>
+                            <div class="article-text">
+                                <span>
+                                    <%
+                                        const spliceArticle = article.text.split("").splice(0, 115)
+                                        const description = `${spliceArticle.join("")}...`
+                                    %>
+                                    <%= description %>
+                                </span>
+                                <input type="hidden" name="text" class="text-edited">
+                                <p hidden>
+                                    <%= article.text %>
+                                </p>
+                            </div>
+                            <div class="article-footer">
+                                <div class="edit-info" hidden>
+                                    <div class="edit-info-content">
+                                        <input type="hidden" name="subject" class="subject-edited">
+                                        <span contenteditable="true" aria-placeholder="Subject"><%= article.subject %></span> | 
+                                        <input type="hidden" name="author" class="author-edited">
+                                        <span contenteditable="true" aria-placeholder="Author"><%= article.author %></span>
+                                    </div>
+                                </div>
+                                <div class="article-info">
+                                    <% 
+                                        const date = article.updateDate.split(" ", 5); 
+                                        const dateOrder = [date[0], date[1], date[2], date[4], date[3]]; 
+                                    %>
+                                    to
+                                    <span class="link article-subject"><%= article.subject %></span>
+                                    by
+                                    <span class="link article-author"><%= article.author %></span>
+                                    at 
+                                    <span><%= dateOrder[0] %> <%= dateOrder[1] %> <%= dateOrder[2] %> <%= dateOrder[3] %> <%= dateOrder[4] %></span>
+                                </div>
+                                <div class="edit" hidden>
+                                    [<span class="link">Edit</span>]
+                                </div>
+                                <div class="edit-open" hidden>[ 
+                                    <button type="submit" formaction="/update" class="submitted-button"><span class="link">Save</span></button> | 
+                                    <button type="submit" formaction="/delete" class="submitted-button"><span class="link">Delete</span></button> ]  
+                                </div>
+                            </div>
+                        </form>
+                    </article>
+                <%  } %>
+            <%  } %>
+        </div>
+        <div id="new-article">
+            [<div class="link">New Article</div>]
+        </div>
+    </main>
     
+    <footer class="main-contents">
+        <hr>
+        Copyright © 2024 
+        <a href="https://github.com/gabrielsrs" target="_blank">@gabrielsrs</a>
+    </footer>
+    <script type="text/javascript" src="javascript/home.js"></script>
+    <script type="text/javascript" src="javascript/articleManipulation.js"></script>
 </body>
 </html>
