@@ -13,5 +13,5 @@ const deletePost = new DeletePost()
 
 router.get("/", viewPost.handle)
 router.post("/", createPost.handle)
-router.patch("/", updatePost.handle)
-router.delete("/", deletePost.handle)
+router.post("/update", updatePost.handle)
+router.post("/delete", deletePost.handle)
