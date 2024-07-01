@@ -7,7 +7,9 @@ class ViewPost {
 
         const articles = manipulateFile.openFile()
 
-        return res.render("home.ejs", { articles: articles })
+        const { message, status } = req.query
+
+        return res.render("home.ejs", { articles: articles, message: message, status: status })
     }
 }
 
