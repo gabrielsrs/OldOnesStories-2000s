@@ -6,9 +6,9 @@
   "devDependencies": {},
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/index.js",
-    "lint:ejs": "ejslint src/views/home.ejs"
+    "lint:ejs": "ejslint src/views/home.ejs",
+    "publish": "node src/index.js"
   },
   "keywords": [],
   "author": "",
