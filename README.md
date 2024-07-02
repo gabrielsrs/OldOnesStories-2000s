@@ -20,3 +20,6 @@ The goal of this project is to create a Blog web application using Node.js, Expr
 #### Technical Requirements
 1.  **Node.js & Express.js:** The application will be a web server built using Node.js and Express.js. Express.js will handle routing and middleware.
 2.  **EJS:** EJS will be used as the templating engine to generate dynamic HTML based on the application's state.
+
+#### Result
+![image](https://private-user-images.githubusercontent.com/55472396/344827851-27ee198d-ab4c-4cc6-85ea-d94c199e4e7c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTk4OTc5MjQsIm5iZiI6MTcxOTg5NzYyNCwicGF0aCI6Ii81NTQ3MjM5Ni8zNDQ4Mjc4NTEtMjdlZTE5OGQtYWI0Yy00Y2M2LTg1ZWEtZDk0YzE5OWU0ZTdjLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA3MDIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNzAyVDA1MjAyNFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTBkZDFlMDQ3NjQ2MTQ4ZDBmMGViODhmMTg1NzI4OTVmM2I5ZDk2NWZhYjM2ZWMyM2FhMTFmNmZiMjViNmZmYTUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.-YuQaYIfnX3poFBDsZfkeYpY3k6BDyc9gsqDuvPPl18)
