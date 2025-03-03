@@ -1,12 +1,11 @@
 {
   "name": "oldonesstories-2000s",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A blog with Node, Express, EJS",
   "main": "index.js",
-  "devDependencies": {},
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "node --watch --env-file=.env src/index.js",
     "lint:ejs": "ejslint src/views/home.ejs",
     "publish": "node src/index.js"
   },
@@ -15,6 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.10",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "mongoose": "^8.11.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7"
   }
 }
