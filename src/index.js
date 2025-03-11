@@ -1,9 +1,13 @@
+import 'dotenv/config';
 import express from "express";
-import { fileURLToPath } from "url";
 import path from "path";
-import { router } from "./routes/index.js"
+import { fileURLToPath } from "url";
+import connectDb from "./config/db.js";
+import { router } from "./routes/index.js";
 
 const app = express();
+
+export const dbConnection = connectDb()
 
 app.use(express.urlencoded({ extended: true }));
 

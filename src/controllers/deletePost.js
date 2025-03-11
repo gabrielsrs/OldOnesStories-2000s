@@ -1,27 +1,15 @@
 import url from "url"
-import { ManipulateFile } from "../utils/manipulateFile.js"
+import { Article } from "../model/index.js"
 
 class DeletePost {
-    handle (req, res) {
+    async handle (req, res) {
         try {
-            const manipulateFile = new ManipulateFile()
-
-            const articles = manipulateFile.openFile()
             const { id } = req.body
 
-            const itemPosition = articles.findIndex(item => item.id === parseInt(id))
-
-            articles.splice(itemPosition, 1)
-
-            if(articles[itemPosition] && articles[itemPosition].id === parseInt(id)) {
-                throw new Error(JSON.stringify({ error: "Delete error", message: "Article not deleted correctly! Try again.", status: "error" }))
-            }
-
-            for(let index = itemPosition; index < articles.length; index++) {
-                articles[index].id = index + 1
-            }
-
-            manipulateFile.saveFile(articles)
+            await Article.findByIdAndDelete(id)
+                .catch(err => {
+                    throw new Error(JSON.stringify({ error: "Delete error", message: "Article not deleted correctly! Try again.", status: "error" }))
+                })
 
             return res.redirect(url.format({ 
                 pathname: "/", 
@@ -38,21 +26,12 @@ class DeletePost {
                 errorMessage = { error: "Unknown error", message: "An error occurred when trying to delete the article.", status: "error" };
             }
 
-            if(errorMessage.error === "Update error") {
-                return res.redirect(url.format({ 
-                    pathname: "/", 
-                    query: { 
-                        message: errorMessage.message, status: errorMessage.status 
-                    } 
-                }))
-            } else {
-                return res.redirect(url.format({ 
-                    pathname: "/", 
-                    query: { 
-                        message: errorMessage.message, status: errorMessage.status 
-                    } 
-                }))
-            }
+            return res.redirect(url.format({ 
+                pathname: "/", 
+                query: { 
+                    message: errorMessage.message, status: errorMessage.status
+                } 
+            }))
         }
     }
 }
